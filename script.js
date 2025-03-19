@@ -2,60 +2,56 @@ document.addEventListener("DOMContentLoaded", () => {
     const player1Input = document.getElementById("player1");
     const player2Input = document.getElementById("player2");
     const submitBtn = document.getElementById("submit");
-    const gameBoard = document.getElementById("game-board");
-    const messageDisplay = document.querySelector(".message");
-    const cells = document.querySelectorAll(".cell");
-
+    const message = document.querySelector(".message");
+    const gameDiv = document.getElementById("game");
+    const boardCells = document.querySelectorAll(".cell");
+    
+    let players = ["", ""];
     let currentPlayer = "X";
-    let player1, player2;
-    let board = ["", "", "", "", "", "", "", "", ""];
     let gameActive = false;
+    let boardState = ["", "", "", "", "", "", "", "", ""];
 
-    // Start game when names are entered
     submitBtn.addEventListener("click", () => {
-        player1 = player1Input.value.trim() || "Player 1";
-        player2 = player2Input.value.trim() || "Player 2";
-        
-        messageDisplay.textContent = `${player1}, you're up`;
-        gameBoard.classList.remove("hidden");
-        document.getElementById("player-form").classList.add("hidden");
+        if (player1Input.value.trim() === "" || player2Input.value.trim() === "") {
+            alert("Both players must enter their names!");
+            return;
+        }
+        players = [player1Input.value, player2Input.value];
+        gameDiv.style.display = "block";
+        message.textContent = `${players[0]}, you're up!`;
         gameActive = true;
     });
 
-    // Handle cell click
-    cells.forEach(cell => {
+    boardCells.forEach((cell, index) => {
         cell.addEventListener("click", () => {
-            if (!gameActive || cell.textContent !== "") return;
+            if (!gameActive || boardState[index] !== "") return;
 
-            let index = parseInt(cell.id) - 1;
-            board[index] = currentPlayer;
+            boardState[index] = currentPlayer;
             cell.textContent = currentPlayer;
 
-            if (checkWinner()) {
-                messageDisplay.textContent = `${getPlayerName(currentPlayer)} congratulations you won!`;
-                gameActive = false;
-                return;
-            }
-
-            currentPlayer = currentPlayer === "X" ? "O" : "X";
-            messageDisplay.textContent = `${getPlayerName(currentPlayer)}, you're up`;
+            setTimeout(() => { // Cypress issue fix
+                if (checkWinner()) {
+                    message.textContent = `${currentPlayer === "X" ? players[0] : players[1]} congratulations you won!`;
+                    gameActive = false;
+                    return;
+                }
+                
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                message.textContent = `${currentPlayer === "X" ? players[0] : players[1]}, you're up!`;
+            }, 50);
         });
     });
 
-    function getPlayerName(symbol) {
-        return symbol === "X" ? player1 : player2;
-    }
-
     function checkWinner() {
         const winPatterns = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
-            [0, 4, 8], [2, 4, 6]             // Diagonals
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+            [0, 4, 8], [2, 4, 6]
         ];
 
         return winPatterns.some(pattern => {
             const [a, b, c] = pattern;
-            return board[a] !== "" && board[a] === board[b] && board[a] === board[c];
+            return boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c];
         });
     }
 });
