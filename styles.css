@@ -1,66 +1,86 @@
- * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            margin: 20px 0;
-        }
-        .input-container {
-            margin: 10px 0;
-        }
-        input {
-            padding: 8px;
-            margin: 5px;
-            font-size: 16px;
-            text-align: center;
-            width: 150px;
-        }
-        .btn {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: blue;
-            color: white;
-            border-radius: 5px;
-        }
-        .btn:hover {
-            background-color: darkblue;
-        }
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
-            justify-content: center;
-            margin: 20px auto;
-            display: none; /* Board initially hidden */
-        }
-        .cell {
-            width: 100px;
-            height: 100px;
-            background-color: white;
-            border: 2px solid black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .cell.winning {
-            background-color: lightgreen;
-        }
-        #winner {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-            color: green;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+/* Heading Style */
+h1 {
+    margin: 20px 0;
+}
+
+/* Input Field Container */
+.input-container {
+    margin: 10px 0;
+}
+
+/* Player Input Fields */
+input {
+    padding: 8px;
+    margin: 5px;
+    font-size: 16px;
+    text-align: center;
+    width: 150px;
+}
+
+/* Start Game Button */
+.btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Button Hover Effect */
+.btn:hover {
+    background-color: darkblue;
+}
+
+/* Tic-Tac-Toe Board */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+    display: none; /* Initially hidden, will show after starting the game */
+}
+
+/* Individual Cells */
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Winning Cells Highlight */
+.cell.winning {
+    background-color: lightgreen;
+}
+
+/* Winner Message */
+#winner, .message {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: green;
+}
